@@ -570,3 +570,31 @@ int main() {
     
     return 0;
 }
+
+
+
+//Binary Search
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 45, 56, 72, 91};
+    int n = 11;
+    int target = 23;
+    
+    // Binary Search
+    int l = 0, r = n - 1;
+    while (l <= r) {
+        int m = (l + r) / 2;
+        if (arr[m] == target) {
+            cout << "Found at index " << m;
+            return 0;
+        }
+        if (arr[m] < target) l = m + 1;
+        else r = m - 1;
+    }
+    
+    cout << "Not found";
+    return 0;
+}
