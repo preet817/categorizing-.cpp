@@ -224,130 +224,349 @@
 
 
 
-// single linklist 
+#include <iostream>
+using namespace std;
 
-// #include <iostream>
-// using namespace std;
+// ============================
+// 1. SINGLY LINKED LIST
+// ============================
 
-// // Node for Singly Linked List
-// struct Node {
-//     int data;
-//     Node* next;
+// Node for Singly Linked List
+struct Node {
+    int data;
+    Node* next;
     
-//     Node(int val) : data(val), next(nullptr) {}
-// };
+    Node(int val) : data(val), next(nullptr) {}
+};
 
-// class SinglyLinkedList {
-// private:
-//     Node* head;
+class SinglyLinkedList {
+private:
+    Node* head;
     
-// public:
-//     SinglyLinkedList() : head(nullptr) {}
+public:
+    SinglyLinkedList() : head(nullptr) {}
     
-//     // Insert at beginning
-//     void insertAtBeginning(int val) {
-//         Node* newNode = new Node(val);
-//         newNode->next = head;
-//         head = newNode;
-    // }
+    // Insert at beginning
+    void insertAtBeginning(int val) {
+        Node* newNode = new Node(val);
+        newNode->next = head;
+        head = newNode;
+    }
     
-    // // Insert at end
-    // void insertAtEnd(int val) {
-    //     Node* newNode = new Node(val);
-    //     if (!head) {
-    //         head = newNode;
-    //         return;
-    //     }
+    // Insert at end
+    void insertAtEnd(int val) {
+        Node* newNode = new Node(val);
+        if (!head) {
+            head = newNode;
+            return;
+        }
         
-    //     Node* temp = head;
-    //     while (temp->next) {
-    //         temp = temp->next;
-    //     }
-    //     temp->next = newNode;
-    // }
+        Node* temp = head;
+        while (temp->next) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
     
-    // // Delete node
-//     void deleteNode(int val) {
-//         if (!head) return;
+    // Delete node
+    void deleteNode(int val) {
+        if (!head) return;
         
-//         // If head needs to be deleted
-//         if (head->data == val) {
-//             Node* temp = head;
-//             head = head->next;
-//             delete temp;
-//             return;
-//         }
+        // If head needs to be deleted
+        if (head->data == val) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
         
-//         Node* current = head;
-//         while (current->next && current->next->data != val) {
-//             current = current->next;
-//         }
+        Node* current = head;
+        while (current->next && current->next->data != val) {
+            current = current->next;
+        }
         
-//         if (current->next) {
-//             Node* temp = current->next;
-//             current->next = current->next->next;
-//             delete temp;
-//         }
-//     }
+        if (current->next) {
+            Node* temp = current->next;
+            current->next = current->next->next;
+            delete temp;
+        }
+    }
     
-//     // Search for a value
-//     bool search(int val) {
-//         Node* current = head;
-//         while (current) {
-//             if (current->data == val) {
-//                 return true;
-//             }
-//             current = current->next;
-//         }
-//         return false;
-//     }
+    // Search for a value
+    bool search(int val) {
+        Node* current = head;
+        while (current) {
+            if (current->data == val) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
+    }
     
-//     // Display the list
-//     void display() {
-//         Node* temp = head;
-//         while (temp) {
-//             cout << temp->data << " -> ";
-//             temp = temp->next;
-//         }
-//         cout << "NULL" << endl;
-//     }
+    // Display the list
+    void display() {
+        Node* temp = head;
+        while (temp) {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "NULL" << endl;
+    }
     
-//     // Get size of list
-//     int size() {
-//         int count = 0;
-//         Node* temp = head;
-//         while (temp) {
-//             count++;
-//             temp = temp->next;
-//         }
-//         return count;
-//     }
+    // Get size of list
+    int size() {
+        int count = 0;
+        Node* temp = head;
+        while (temp) {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
     
-//     // Reverse the list
-//     void reverse() {
-//         Node* prev = nullptr;
-//         Node* current = head;
-//         Node* next = nullptr;
+    // Reverse the list
+    void reverse() {
+        Node* prev = nullptr;
+        Node* current = head;
+        Node* next = nullptr;
         
-//         while (current) {
-//             next = current->next;
-//             current->next = prev;
-//             prev = current;
-//             current = next;
-//         }
-//         head = prev;
-//     }
+        while (current) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
     
-//     // Destructor
-//     ~SinglyLinkedList() {
-//         Node* current = head;
-//         while (current) {
-//             Node* next = current->next;
-//             delete current;
-//             current = next;
-//         }
-//     }
-// };
+    // Destructor
+    ~SinglyLinkedList() {
+        Node* current = head;
+        while (current) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+};
 
+// ============================
+// 2. DOUBLY LINKED LIST
+// ============================
 
+// Node for Doubly Linked List
+struct DNode {
+    int data;
+    DNode* next;
+    DNode* prev;
+    
+    DNode(int val) : data(val), next(nullptr), prev(nullptr) {}
+};
 
+class DoublyLinkedList {
+private:
+    DNode* head;
+    DNode* tail;
+    
+public:
+    DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+    
+    // Insert at beginning
+    void insertAtBeginning(int val) {
+        DNode* newNode = new DNode(val);
+        if (!head) {
+            head = tail = newNode;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    }
+    
+    // Insert at end
+    void insertAtEnd(int val) {
+        DNode* newNode = new DNode(val);
+        if (!head) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+    
+    // Delete node
+    void deleteNode(int val) {
+        if (!head) return;
+        
+        DNode* current = head;
+        while (current && current->data != val) {
+            current = current->next;
+        }
+        
+        if (!current) return; // Value not found
+        
+        if (current->prev) {
+            current->prev->next = current->next;
+        } else {
+            head = current->next;
+        }
+        
+        if (current->next) {
+            current->next->prev = current->prev;
+        } else {
+            tail = current->prev;
+        }
+        
+        delete current;
+    }
+    
+    // Display forward
+    void displayForward() {
+        DNode* temp = head;
+        while (temp) {
+            cout << temp->data << " <-> ";
+            temp = temp->next;
+        }
+        cout << "NULL" << endl;
+    }
+    
+    // Display backward
+    void displayBackward() {
+        DNode* temp = tail;
+        while (temp) {
+            cout << temp->data << " <-> ";
+            temp = temp->prev;
+        }
+        cout << "NULL" << endl;
+    }
+    
+    ~DoublyLinkedList() {
+        DNode* current = head;
+        while (current) {
+            DNode* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+};
+
+// ============================
+// 3. CIRCULAR LINKED LIST
+// ============================
+
+class CircularLinkedList {
+private:
+    Node* head;
+    
+public:
+    CircularLinkedList() : head(nullptr) {}
+    
+    // Insert at end
+    void insertAtEnd(int val) {
+        Node* newNode = new Node(val);
+        if (!head) {
+            head = newNode;
+            newNode->next = head;
+        } else {
+            Node* temp = head;
+            while (temp->next != head) {
+                temp = temp->next;
+            }
+            temp->next = newNode;
+            newNode->next = head;
+        }
+    }
+    
+    // Display
+    void display() {
+        if (!head) {
+            cout << "List is empty" << endl;
+            return;
+        }
+        
+        Node* temp = head;
+        do {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        } while (temp != head);
+        cout << "(back to head)" << endl;
+    }
+    
+    // Check if list is circular
+    bool isCircular() {
+        if (!head) return true;
+        
+        Node* slow = head;
+        Node* fast = head;
+        
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+            
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    ~CircularLinkedList() {
+        if (!head) return;
+        
+        Node* current = head;
+        Node* nextNode;
+        
+        do {
+            nextNode = current->next;
+            delete current;
+            current = nextNode;
+        } while (current != head);
+    }
+};
+
+// ============================
+// MAIN FUNCTION
+// ============================
+
+int main() {
+    cout << "=== Singly Linked List ===" << endl;
+    SinglyLinkedList sll;
+    sll.insertAtEnd(10);
+    sll.insertAtEnd(20);
+    sll.insertAtBeginning(5);
+    sll.insertAtEnd(30);
+    sll.display();
+    
+    cout << "Search 20: " << (sll.search(20) ? "Found" : "Not Found") << endl;
+    cout << "Size: " << sll.size() << endl;
+    
+    cout << "After reversing: ";
+    sll.reverse();
+    sll.display();
+    
+    cout << "\n=== Doubly Linked List ===" << endl;
+    DoublyLinkedList dll;
+    dll.insertAtEnd(100);
+    dll.insertAtEnd(200);
+    dll.insertAtBeginning(50);
+    dll.insertAtEnd(300);
+    
+    cout << "Forward: ";
+    dll.displayForward();
+    
+    cout << "Backward: ";
+    dll.displayBackward();
+    
+    cout << "\n=== Circular Linked List ===" << endl;
+    CircularLinkedList cll;
+    cll.insertAtEnd(1);
+    cll.insertAtEnd(2);
+    cll.insertAtEnd(3);
+    cll.display();
+    
+    cout << "Is circular: " << (cll.isCircular() ? "Yes" : "No") << endl;
+    
+    return 0;
+}
